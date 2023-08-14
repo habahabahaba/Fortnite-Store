@@ -114,18 +114,21 @@ export default function Shop() {
     [showCart]
   );
 
-  useEffect(function getWares() {
-    fetch(FORTNITE_API_URL, {
-      headers: { Authorization: FORTNITE_API_KEY },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data['shop']) {
-          setWares(data['shop']);
-        } else throw new Error('Failed to load data!');
-        setIsLoading(false);
-      });
-  }, []);
+  useEffect(
+    function getWares() {
+      fetch(FORTNITE_API_URL, {
+        headers: { Authorization: FORTNITE_API_KEY },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data['shop']) {
+            setWares(data['shop']);
+          } else throw new Error('Failed to load data!');
+          setIsLoading(false);
+        });
+    },
+    [setWares]
+  );
 
   const totalCount = Object.keys(cart).reduce((sum) => sum + 1, 0);
 
